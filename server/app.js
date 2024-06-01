@@ -24,7 +24,10 @@ const AppError = require("./utils/appError");
 // Cross Origin Resource Sharing
 app.use(
   cors({
-    origin: "http://localhost:5173", // Allow requests from this origin
+    origin: [
+      "http://localhost:5173",
+      "https://the-wild-oasis-iovq9p314-dibyaadhikarees-projects.vercel.app'",
+    ], // Allow requests from this origin
     optionsSuccessStatus: 200, // Some legacy browsers (IE11, various SmartTVs) choke on 204
   })
 );
