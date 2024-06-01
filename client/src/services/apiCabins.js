@@ -2,6 +2,8 @@
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+console.log(API_URL, "api url");
+
 const baseUrl = `${API_URL}/api/cabins/`;
 
 export const getCabins = async function () {
