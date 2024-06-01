@@ -33,17 +33,7 @@ app.use(
   })
 );
 
-app.use((req, res, next) => {
-  // Set CORS headers
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://the-wild-oasis-five-eta.vercel.app"
-  );
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  //afd
-  next();
-});
+
 
 app.use("/api/bookings", bookingsRouter);
 app.use("/api/cabins", cabinsRouter);
