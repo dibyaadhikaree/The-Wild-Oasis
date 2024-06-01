@@ -26,12 +26,23 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-     "https://the-wild-oasis-five-eta.vercel.app",
+      "https://the-wild-oasis-five-eta.vercel.app",
       "https://the-wild-oasis-server.vercel.app",
     ], // Allow requests from this origin
     optionsSuccessStatus: 200, // Some legacy browsers (IE11, various SmartTVs) choke on 204
   })
 );
+
+app.use((req, res, next) => {
+  // Set CORS headers
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://the-wild-oasis-five-eta.vercel.app"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
 
 app.use("/api/bookings", bookingsRouter);
 app.use("/api/cabins", cabinsRouter);
