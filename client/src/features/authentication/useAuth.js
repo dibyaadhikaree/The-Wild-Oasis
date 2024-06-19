@@ -26,6 +26,7 @@ export function useLogin() {
     onError: () => {
       toast.error("Invalid username or password");
     },
+    retry: false,
   });
 
   return { login: mutate, isLoading };
@@ -41,6 +42,7 @@ export function useUser() {
     onError: () => {
       navigate("/login");
     },
+    retry: false,
   });
 
   return { currentUser: data, isLoading };
