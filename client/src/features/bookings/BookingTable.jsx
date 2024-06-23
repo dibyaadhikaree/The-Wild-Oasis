@@ -11,7 +11,7 @@ function BookingTable() {
 
   if (isLoading) return <Spinner />;
 
-  const bookings = data.data;
+  const bookings = data?.data;
   const totalDocs = data?.count || 0;
 
   return (
@@ -26,12 +26,13 @@ function BookingTable() {
           <div></div>
         </Table.Header>
 
-        <Table.Body
+        {bookings.length !== 0 ?  <Table.Body
           data={bookings}
           render={(booking) => (
             <BookingRow key={booking._id} booking={booking} />
           )}
-        />
+        /> : <Table.Body>No bookings found</Table.Body>
+        }
 
         <Table.Footer>
           <Pagination count={totalDocs} />
