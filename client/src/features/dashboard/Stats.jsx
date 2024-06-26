@@ -26,7 +26,7 @@ function Stats({ bookings, confirmedStays, numDays, cabinCount }) {
   const checkins = 10;
 
   // 4.
-  const occupation = 50;
+  const occupation = 0.67;
   // num checked in nights / all available nights (num days * num cabins)
 
   return (
