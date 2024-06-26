@@ -1,10 +1,11 @@
 const Booking = require("../models/bookingsModel");
 const AppError = require("../utils/appError");
 const catchAsyncErrors = require("../utils/catchAsyncErrors");
+const { ObjectId } = require("mongodb");
 
 exports.getAllBookings = catchAsyncErrors(async (req, res, next) => {
   // console.log(req.query);
-  // { sortBy: 'startDate-asc', status: 'unconfirmed' }
+  // { sortBy: 'startDate-asc', status: 'unconfirmed'  , id : cabinId}
 
   const filterFields = { ...req.query };
 
@@ -16,9 +17,11 @@ exports.getAllBookings = catchAsyncErrors(async (req, res, next) => {
   //   select: "-__v -_id",
   // });
 
-  const matchObj = Object.entries(filterFields).map(([key, val]) => ({
-    [key]: val * 1 || val,
-  }));
+  const matchObj = Object.entries(filterFields).map(([key, val]) => {
+    return {
+      [key]: val * 1 || val,
+    };
+  });
 
   let aggregate = Booking.aggregate([
     {
@@ -99,6 +102,19 @@ exports.getBooking = catchAsyncErrors(async (req, res, next) => {
   const id = req.params.id;
 
   const booking = await Booking.findById(id);
+
+  if (!booking) return next(new AppError("No booking found for the id", 404));
+
+  res.status(200).json({
+    status: "success",
+    data: booking,
+  });
+});
+
+exports.getBookingByUserId = catchAsyncErrors(async (req, res, next) => {
+  const userId = req.params.id;
+
+  const booking = await Booking.find({ guest: userId });
 
   if (!booking) return next(new AppError("No booking found for the id", 404));
 

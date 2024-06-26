@@ -11,6 +11,7 @@ router
 
 router
   .route("/:id")
+  .get(cabinsController.getCabin)
   .delete(cabinsController.deleteCabin)
   .patch(cabinsController.editCabin);
 

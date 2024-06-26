@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+// /* eslint-disable no-undef */
 
 const Cabin = require("../models/cabinsModel");
 const Guest = require("../models/guestsModel");
@@ -585,7 +585,8 @@ console.log(process.env.DB);
 const db = process.env.DB.replace("<password>", process.env.DB_PASSWORD);
 
 function generateRandomObjectId() {
-  return new ObjectId();
+  const id = new ObjectId();
+  return id.toString();
 }
 
 function modifyData() {
@@ -623,7 +624,13 @@ mongoose.connect(db).then(() => {
 
 async function importData() {
   await Cabin.create(cabinData);
-  await Guest.create(guestData);
+  await Guest.create(
+    guestData.map((data) => ({
+      ...data,
+      name: data.fullName,
+      fullName: undefined,
+    }))
+  );
   await Booking.create(bookingData);
 
   //find all if of cabin guest and booking

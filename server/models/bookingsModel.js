@@ -57,13 +57,14 @@ const bookingSchema = new mongoose.Schema(
 bookingSchema.virtual("totalPrice").get(function () {
   // this.status = Date.now() - this.endDate < 0 ? "unconfirmed" : "checkedOut";
   // this.save();
+
   return this.cabin.regularPrice - this.cabin.discount;
 });
 
 bookingSchema.pre(/^find/, async function (next) {
   this.populate({
     path: "cabin guest",
-    select: "-_id -_v",
+    select: "_id -_v",
   });
   next();
 });

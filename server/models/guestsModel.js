@@ -4,10 +4,7 @@ const mongoose = require("mongoose");
 // i.e connecting cabin with guest
 
 const guestSchema = new mongoose.Schema({
-  fullName: {
-    type: String,
-    required: [true, "A guest name is required"],
-  },
+  name: { type: String, required: [true, "A guest name is required"] },
   email: {
     type: String,
   },
@@ -23,14 +20,6 @@ const guestSchema = new mongoose.Schema({
 });
 
 const Guest = mongoose.model("Guest", guestSchema);
-
-Guest.create({
-  fullName: "Jonas Schmedtmann",
-  email: "hello@jonas.io",
-  nationality: "Portugal",
-  nationalID: "3525436345",
-  countryFlag: "https://flagcdn.com/pt.svg",
-});
 
 module.exports = Guest;
 
