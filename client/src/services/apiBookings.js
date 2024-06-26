@@ -9,6 +9,13 @@ export const getBookings = async function (queryUrl) {
   return data;
 };
 
+export const getBookingsAfterDate = async function (queryUrl) {
+  const res = await fetch(baseUrl + queryUrl);
+  const data = await res.json();
+
+  return data;
+};
+
 export const getBooking = async function (id) {
   const res = await fetch(baseUrl + `/${id}`);
   const data = await res.json();
