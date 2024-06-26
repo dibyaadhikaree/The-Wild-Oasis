@@ -16,19 +16,19 @@ export function useBookings() {
     statusStr = "status=" + first + second[0]?.toUpperCase() + second?.slice(1);
 
   //Sorting
-  const sortStr = `${searchParams.get("sort-by") || "startDate-asc"}`;
+  const sortStr = `${searchParams.get("sort-by") ?? "startDate-desc"}`;
 
   //Pagination
   const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
 
   const queryUrl = `?${statusStr}&sortBy=${sortStr}&page=${page}`;
 
-  const { data = {}, isLoading } = useQuery({
+  const { data = { data: [], count: 0 }, isLoading } = useQuery({
     queryKey: ["bookings", queryUrl],
     queryFn: () => getBookings(queryUrl),
   });
 
-  const pageCount = Math.ceil(data.count / 3);
+  const pageCount = Math.ceil(data?.count / 3);
   // Pre fetching
   const preFetchUrl = `?${statusStr}&sortBy=${sortStr}&page=${page + 1}`;
   if (page < pageCount)

@@ -77,7 +77,7 @@ exports.getAllBookings = catchAsyncErrors(async (req, res, next) => {
       });
   }
 
-  const [{ bookings = await aggregate, totalCount: count = {} }] =
+  const [{ bookings = await aggregate, totalCount: count = 0 }] =
     await aggregate;
 
   res.status(200).json({
